@@ -1,26 +1,16 @@
-// Import the fetch API
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
-export default async (req, res) => {
-  const { pageKey } = req.query;  // Get the page key from the query parameter
-
-  // Build the CountAPI URL
-  const namespace = 'www.stonemillwyo.com';  // Your namespace in CountAPI
-  const API_URL = `https://api.countapi.xyz/hit/${namespace}/${pageKey}`;
+module.exports = async (req, res) => {
+  const url = 'https://api.countapi.xyz/hit/stonemillwyo.com/1403-windsor-c';
 
   try {
-    // Make the request to CountAPI
-    const apiResponse = await fetch(API_URL);
-    const data = await apiResponse.json();
+    const response = await fetch(url);
+    const data = await response.json();
 
-    // Set CORS headers to allow requests from your Squarespace site
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-
-    // Return the data from CountAPI to the client
+    // Send the response back to the frontend
     res.status(200).json(data);
   } catch (error) {
-    console.error('Error fetching data:', error);
-    res.status(500).json({ error: 'Failed to fetch view count' });
+    console.error('Error fetching views:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
