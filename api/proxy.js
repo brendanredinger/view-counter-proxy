@@ -5,7 +5,7 @@ export default async (req, res) => {
   const { pageKey } = req.query;  // Get the page key from the query parameter
 
   // Build the CountAPI URL
-  const namespace = 'stonemillwyo';  // Your namespace in CountAPI
+  const namespace = 'www.stonemillwyo.com';  // Your namespace in CountAPI
   const API_URL = `https://api.countapi.xyz/hit/${namespace}/${pageKey}`;
 
   try {
